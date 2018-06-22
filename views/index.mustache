@@ -1,0 +1,13 @@
+<h1>Shopping List</h1>
+
+<form action='/shoppinglist' method='POST'>
+    <input type="text" name="shoppinglist">
+    <input type="submit">
+</form>
+
+<h3>Lists</h3>
+<ul>
+    {{#list}}
+        <li>{{shoppinglist}}</li><button>Remove</button>
+    {{/list}}
+</ul>
