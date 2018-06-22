@@ -10,6 +10,8 @@ app.engine('mustache',mustacheExpress())
 app.set('views','./views')
 app.set('view engine','mustache')
 
+app.use(express.static(__dirname + '/views'))
+
 // get all shopping lists
 app.get('/shoppinglist', function(req,res){
 
@@ -46,7 +48,27 @@ app.post('/shoppinglist', function(req,res){
     res.redirect('/shoppinglist')
 })
 
+app.post('/deletelist',function(req,res){
+    console.log('this is happening')
+    let listID = req.body.listID
+    
+    models.shoppingList.find({
+        where: { id: listID}
+    }).then((result) => {
+        return models.shoppingList.destroy({ where: {id: listID}})
+            .then((u) => { res.redirect('/shoppinglist') });
+    });
 
+    // models.shoppingList.destory({  
+    //     where: { id: listID }
+    //   })
+    //   .then(deletedPet => {
+    //     console.log(`Has the Max been deleted? 1 means yes, 0 means no: ${deletedPet}`);
+    //   });
+  
+    //res.render('shoppinglist',{shoppinglist : lists})
+  
+  })
 
 
 app.listen(3000, () => console.log('Listening on 3000'))
