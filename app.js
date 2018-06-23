@@ -21,18 +21,6 @@ app.get('/shoppinglist', function(req,res){
     })
 })
 
-// get shopping list by name
-app.get('/shoppinglist/:name',function(req,res){
-    console.log(req.params.name)
-    models.shoppingList.findOne({
-        where: {
-            shoppinglist : req.params.name
-        }
-    }).then(function(shoppinglist){
-        res.json(shoppinglist)
-    })
-})
-
 app.use(bodyParser.urlencoded({ extended : false }))
 
 app.post('/shoppinglist', function(req,res){
@@ -58,17 +46,24 @@ app.post('/deletelist',function(req,res){
         return models.shoppingList.destroy({ where: {id: listID}})
             .then((u) => { res.redirect('/shoppinglist') });
     });
+  
+})
 
-    // models.shoppingList.destory({  
-    //     where: { id: listID }
-    //   })
-    //   .then(deletedPet => {
-    //     console.log(`Has the Max been deleted? 1 means yes, 0 means no: ${deletedPet}`);
-    //   });
-  
-    //res.render('shoppinglist',{shoppinglist : lists})
-  
-  })
+app.post('/grocerylist', function(req,res){
+
+    console.log('creating a list')
+    let newlist = models.grocerylist.build({
+        item : req.body.item,
+        quantity : req.body.quantity
+    })
+
+    newlist.save().then(function(savedGroceryList){
+        console.log("Saved successful", savedGroceryList)
+        
+    })
+    res.redirect('/shoppinglist')
+})
+
 
 
 app.listen(3000, () => console.log('Listening on 3000'))

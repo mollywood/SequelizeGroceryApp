@@ -18,6 +18,12 @@
             <input type="hidden" name="listID" value='{{id}}' />
             <input type="submit" value="Delete" />
         </form>
+        <form action='/grocerylist' method='POST'>
+            <input type="text" name="item" placeholder="Input a grocery item" />
+            <input type="number" name="quantity" placeholder="Input a quantity" />  
+            <input type="submit" />
+        </form>
+       
     {{/list}}
 </ul>
 </body>
