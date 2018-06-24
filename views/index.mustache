@@ -1,29 +1,43 @@
 <head>
     <title>Shopping List</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link rel="stylesheet" href="styles.css" type="text/css">
 </head>
 <body>
 <h1>Shopping List</h1>
-
-<form action='/shoppinglist' method='POST'>
-    <input type="text" name="shoppinglist" />
-    <input type="submit" />
-</form>
-
-<h3>Lists</h3>
-<ul>
-    {{#list}}
-        <li>{{shoppinglist}}</li>
-        <form action='/deleteList' method='POST'>
-            <input type="hidden" name="listID" value='{{id}}' />
-            <input type="submit" value="Delete" />
+<div class="container">
+    <div class="row">
+        <form action='/shoppinglist' method='POST'>
+            <label for="listname">Enter a store</label>
+            <input id="listname" type="text" name="shoppinglist" />
+            <input type="submit" class="btn waves-effect waves-light pink lighten-3" />
         </form>
-        <form action='/grocerylist' method='POST'>
-            <input type="text" name="item" placeholder="Input a grocery item" />
-            <input type="number" name="quantity" placeholder="Input a quantity" />  
-            <input type="submit" />
-        </form>
-       
-    {{/list}}
-</ul>
+    </div>
+
+        <ul>
+            {{#list}}
+                <li><h2>{{shoppinglist}}</h2></li>
+                <form action='/deleteList' method='POST'>
+                    <input type="hidden" name="listID" value='{{id}}' />
+                    <input type="submit" value="Delete" class="btn waves-effect waves-light pink lighten-3">
+                </form>
+                <div class="row">
+                    <form action='/grocerylist' method='POST'>
+                        <div class="input-field">
+                            <label for="item">Input a grocery item</label>
+                            <input type="text" id="item" name="item" class="col s3" />
+                        </div>
+                        <div class="input-field">
+                            <label for="quantity" class="offset-s1">Input a quantity</label> 
+                            <input type="number" id="quantity" name="quantity" class="offset-s1 col s3" /> 
+                        </div>
+                        <input type="submit" class="btn waves-effect waves-light pink lighten-3 offset-s2" />
+                    </form>
+                </div>
+            
+            {{/list}}
+        </ul>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 </body>
